@@ -32,9 +32,12 @@ if (testcases.length > 0) {
   let corrects = 0;
   for (testcase of testcases) {
     const input = readFileSync(dir + "/" + testcase.input).toString();
+    const start = performance.now();
     const result = run(sourceFile, ext, input, dir);
+    const end = performance.now();
+    const spent = (end - start).toFixed(2) + "ms";
     if (testcase.output === null) {
-      console.log(colors.yellow("☐"), "#" + testcase.name);
+      console.log(colors.yellow("☐"), "#" + testcase.name, colors.blue(spent));
       console.log("");
       console.log("result:");
       console.log(result);
@@ -43,10 +46,10 @@ if (testcases.length > 0) {
     } else {
       const output = readFileSync(dir + "/" + testcase.output).toString();
       if (result === output) {
-        console.log(colors.green("✔"), "#" + testcase.name);
+        console.log(colors.green("✔"), "#" + testcase.name, colors.blue(spent));
         corrects += 1;
       } else {
-        console.log(colors.red("✘"), "#" + testcase.name);
+        console.log(colors.red("✘"), "#" + testcase.name, colors.blue(spent));
         console.log("");
         console.log("expected:");
         console.log(output);
