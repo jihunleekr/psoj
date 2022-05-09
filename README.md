@@ -93,8 +93,10 @@ result:
 
 ```json
 {
-  "extensions": ["js", "java"]
+  "extensions": ["js", "java"],
+  "sourceNames": ["main", "index", "problem"]
 }
 ```
 
 - `extensions`: 실행가능한 소스파일이 여러가지일 경우 우선순위를 설정합니다.
+- `sourceNames`: 소스파일이 같은 확장자일때 이름에 따른 우선순위를 설정합니다.

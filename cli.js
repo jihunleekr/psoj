@@ -6,19 +6,21 @@ const colors = require("colors/safe");
 
 const config = {
   extensions: [],
+  sourceNames: ["main", "index", "problem"],
 };
 if (existsSync("./psoj.json")) {
   Object.assign(config, JSON.parse(readFileSync("./psoj.json").toString()));
 }
 
 const exts = config.extensions;
+const runables = config.sourceNames;
 const args = process.argv.slice(2);
 const keyword = args[0];
 
 const dir = getDir(keyword);
 const ext = getExt(dir, exts);
 if (ext === null) exit("There is no source file.");
-const sourceFile = getSourceFile(dir, ext);
+const sourceFile = getSourceFile(dir, ext, runables);
 const testcases = getTestcases(dir);
 const compileErrMsg = compile(sourceFile, ext, dir);
 if (compileErrMsg) {
