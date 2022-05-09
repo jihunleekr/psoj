@@ -1,0 +1,30 @@
+{
+  "name": "psoj",
+  "version": "0.9.3",
+  "description": "problem solving offline judge CLI",
+  "keywords": [
+    "problem solving",
+    "offline judge",
+    "baekjoon",
+    "codeforces"
+  ],
+  "author": "zkoong",
+  "bin": {
+    "psoj": "./cli.js"
+  },
+  "scripts": {
+    "test": "tape test/*.js | colortape"
+  },
+  "files": [
+    "cli.js",
+    "lib/"
+  ],
+  "license": "ISC",
+  "devDependencies": {
+    "colortape": "^0.1.2",
+    "tape": "^5.5.3"
+  },
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
