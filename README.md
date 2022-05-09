@@ -49,8 +49,8 @@ $ npx psoj <keyword>
 │   ├── 1012
 ```
 
-- 입력: `*.in` `*input*`
-- 정답: `*.out` `*output*`
+- 입력: `*.in*` `*input*`
+- 정답: `*.out*` `*output*`
 - 소스: `main.*` `index.*` `problem.*` (psoj.json 설정파일에서 설정 가능합니다)
 
 `1001` 디렉토리와 같이 정답은 없어도 실행 가능합니다.
@@ -61,9 +61,9 @@ $ npx psoj <keyword>
 $ npx psoj 1000
 Source: ./math/1000/main.py
 
-✔ #1 49.37ms
-✔ #2 52.50ms
-✘ #3 56.29ms
+✔ #1.in 49.37ms
+✔ #2.in 52.50ms
+✘ #3.input.txt 56.29ms
 
 expected:
 40
@@ -79,7 +79,7 @@ result:
 $ npx psoj 1001
 Source: ./math/1001/main.js
 
-☐ #1 54.77ms
+☐ #1.in 54.77ms
 
 result:
 30
