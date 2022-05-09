@@ -60,10 +60,12 @@ if (testcases.length > 0) {
     }
   }
   console.log("");
-  console.log(
-    testable === corrects ? colors.green(corrects + "/" + testable) : colors.red(corrects + "/" + testable),
-    "case" + (corrects > 1 ? "s" : "") + " passed."
-  );
+  if (testable > 0) {
+    console.log(
+      testable === corrects ? colors.green(corrects + "/" + testable) : colors.red(corrects + "/" + testable),
+      "case" + (corrects > 1 ? "s" : "") + " passed."
+    );
+  }
   const unknowns = testcases.length - testable;
   if (unknowns) {
     console.log(colors.yellow(unknowns), "unknown case" + (unknowns > 1 ? "s" : "") + ".");
