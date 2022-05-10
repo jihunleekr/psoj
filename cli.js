@@ -3,6 +3,7 @@ const { getDir, getExt, getSourceFile, getTestcases } = require("./lib/file");
 const { compile, run, restore } = require("./lib/run");
 const { existsSync, readFileSync } = require("fs");
 const colors = require("colors/safe");
+const { printTestCaseUnknown, printTestCaseCorrect, printTestCaseWrong, printTestCaseError } = require("./lib/print");
 
 const config = {
   extensions: [],
@@ -37,28 +38,25 @@ if (testcases.length > 0) {
     const start = performance.now();
     const result = run(sourceFile, ext, input, dir);
     const end = performance.now();
-    const spent = (end - start).toFixed(2) + "ms";
-    if (testcase.output === null) {
-      console.log(colors.yellow("☐"), "#" + testcase.name, colors.blue(spent));
-      console.log("");
-      console.log("result:");
-      console.log(result);
-      console.log("");
-      testable -= 1;
-    } else {
-      const output = readFileSync(dir + "/" + testcase.output).toString();
-      if (result === output) {
-        console.log(colors.green("✔"), "#" + testcase.name, colors.blue(spent));
-        corrects += 1;
+    const stdout = result.stdout;
+    const stderr = result.stderr;
+    if (!stderr) {
+      const spent = (end - start).toFixed(2) + "ms";
+      if (testcase.output === null) {
+        printTestCaseUnknown(testcase, spent, stdout);
+        testable -= 1;
       } else {
-        console.log(colors.red("✘"), "#" + testcase.name, colors.blue(spent));
-        console.log("");
-        console.log("expected:");
-        console.log(output);
-        console.log("result:");
-        console.log(result);
-        console.log("");
+        const answer = readFileSync(dir + "/" + testcase.output).toString();
+        if (answer === stdout) {
+          printTestCaseCorrect(testcase, spent);
+          corrects += 1;
+        } else {
+          printTestCaseWrong(testcase, spent, stdout, answer);
+        }
       }
+    } else {
+      printTestCaseError(testcase, stderr);
+      break;
     }
   }
   console.log("");

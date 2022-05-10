@@ -61,9 +61,9 @@ $ npx psoj <keyword>
 $ npx psoj 1000
 Source: ./math/1000/main.py
 
-✔ #1.in 49.37ms
-✔ #2.in 52.50ms
-✘ #3.input.txt 56.29ms
+✔  1.in 49.37ms
+✔  2.in 52.50ms
+✘  3.input.txt 56.29ms
 
 expected:
 40
@@ -79,7 +79,7 @@ result:
 $ npx psoj 1001
 Source: ./math/1001/main.js
 
-☐ #1.in 54.77ms
+☐  1.in 54.77ms
 
 result:
 30
