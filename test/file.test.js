@@ -32,7 +32,7 @@ test("테스트케이스는 파일명에 '.in' 이나 'input' 를 포함한다."
   t.plan(1);
   t.deepEqual(getTestcases("./test/1000"), [
     {
-      name: "1",
+      name: "1.in",
       input: "1.in",
       output: "1.out",
     },
