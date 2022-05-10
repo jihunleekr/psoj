@@ -22,12 +22,17 @@ $ npx psoj <keyword>
 
 # 지원하는 언어
 
+- c `.c`
 - c++ `.cc` `.cpp`
+- golang `.go`
 - java `.java`
+- kotlin `.kt`
 - nodejs `.js`
+- typescript `.ts`
 - python3 `.py`
 - php `.php`
 - ruby `.rb`
+- rust `.rs`
 
 # 디렉토리 구조
 

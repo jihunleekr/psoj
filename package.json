@@ -21,6 +21,7 @@
   ],
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^17.0.31",
     "colortape": "^0.1.2",
     "tape": "^5.5.3"
   },
