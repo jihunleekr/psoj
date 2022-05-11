@@ -19,8 +19,9 @@ const args = process.argv.slice(2);
 const keyword = args[0];
 
 const dir = getDir(keyword);
+if (dir === null) exit(`No such directory: ${colors.cyan(keyword)}`);
 const ext = getExt(dir, exts);
-if (ext === null) exit("There is no source file.");
+if (ext === null) exit("No source file.");
 const sourceFile = getSourceFile(dir, ext, runables);
 const testcases = getTestcases(dir);
 const compileErrMsg = compile(sourceFile, ext, dir);
