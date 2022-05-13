@@ -2,6 +2,7 @@
 const { getDir, getExt, getSourceFile, getTestcases } = require("./lib/file");
 const { compile, run, restore } = require("./lib/run");
 const { existsSync, readFileSync } = require("fs");
+const { join } = require("path");
 const colors = require("colors/safe");
 const { printTestCaseUnknown, printTestCaseCorrect, printTestCaseWrong, printTestCaseError } = require("./lib/print");
 
@@ -30,12 +31,12 @@ if (compileErrMsg) {
 }
 
 if (testcases.length > 0) {
-  console.log("Source: " + colors.white(dir + "/" + sourceFile));
+  console.log("Source: " + colors.white(join(dir, sourceFile)));
   console.log("");
   let testable = testcases.length;
   let corrects = 0;
   for (testcase of testcases) {
-    const input = readFileSync(dir + "/" + testcase.input).toString();
+    const input = readFileSync(join(dir, testcase.input)).toString();
     const start = performance.now();
     const result = run(sourceFile, ext, input, dir);
     const end = performance.now();
@@ -47,7 +48,7 @@ if (testcases.length > 0) {
         printTestCaseUnknown(testcase, spent, stdout);
         testable -= 1;
       } else {
-        const answer = readFileSync(dir + "/" + testcase.output).toString();
+        const answer = readFileSync(join(dir, testcase.output)).toString();
         if (answer === stdout) {
           printTestCaseCorrect(testcase, spent);
           corrects += 1;
