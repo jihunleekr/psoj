@@ -7,8 +7,9 @@ PSOJ = Problem Solving Offline Judge
 
 # 설치
 
-- `node` `npx` 가 설치되어 있어야 합니다.
-- 사용하고자 하는 언어가 설치되어 있어야 합니다.
+1. [node.js](https://nodejs.org/ko/download/)
+1. [npx](https://www.npmjs.com/package/npx)
+1. 사용하고자 하는 언어의 컴파일러나 인터프리터
 
 # 사용법
 
@@ -21,17 +22,20 @@ $ npx psoj <keyword>
 
 # 지원하는 언어
 
-- c `.c`
-- c++ `.cc` `.cpp`
-- golang `.go`
-- java `.java`
-- kotlin `.kt`
-- nodejs `.js`
-- typescript `.ts`
-- python3 `.py`
-- php `.php`
-- ruby `.rb`
-- rust `.rs`
+| 언어       | 확장자       | 명령어               | 비고 |
+| ---------- | ------------ | -------------------- | ---- |
+| c          | `.c`         | `gcc`                |      |
+| c++        | `.cc` `.cpp` | `g++`                |      |
+| c#         | `.cs`        | `csc` `mono`         |      |
+| golang     | `.go`        | `go`                 |      |
+| java       | `.java`      | `javac` `java`       |      |
+| kotlin     | `.kt`        | `kotlinc-jvm` `java` |      |
+| nodejs     | `.js`        | `node`               |      |
+| typescript | `.ts`        | `tsc`                |      |
+| python3    | `.py`        | `python3`            |      |
+| php        | `.php`       | `php`                |      |
+| ruby       | `.rb`        | `ruby`               |      |
+| rust       | `.rs`        | `rustc`              |      |
 
 # 문제풀이 디렉토리 구조 예시
 
@@ -53,9 +57,9 @@ $ npx psoj <keyword>
 │   ├── 1012
 ```
 
-- 입력: `*.in*` `*input*`
-- 정답: `*.out*` `*output*`
-- 소스: `main.*` `index.*` `problem.*` [순서 변경이나 다른 이름도 가능합니다](#설정파일)
+- 입력파일: `*.in*` `*input*`
+- 정답파일: `*.out*` `*output*`
+- 소스파일: `main.*` `index.*` `problem.*` [순서 변경이나 다른 이름도 가능합니다](#설정파일)
 
 `1001` 디렉토리와 같이 정답파일이 없어도 실행 가능합니다.
 
@@ -63,7 +67,7 @@ $ npx psoj <keyword>
 
 ```sh
 $ npx psoj 1000
-Source: ./math/1000/main.py
+Source: math/1000/main.py
 
 ✔  1.in 49.37ms
 ✔  2.in 52.50ms
@@ -81,7 +85,7 @@ result:
 
 ```sh
 $ npx psoj 1001
-Source: ./math/1001/main.js
+Source: math/1001/main.js
 
 ☐  1.in 54.77ms
 
@@ -111,6 +115,6 @@ result:
 # 지원 운영체제
 
 - 리눅스에서 사용 가능함.
-- 윈도우에서 `gitbash` 내에서 테스트 됨.
-- macOS 에서 테스트 되지 않음.
-- 모든 운영체제에서 별다른 설정없이 사용할 수 있도록 하고자 함.
+- 윈도우 `bash` 에서 사용 가능함.
+- macOS 에서 확인해보지 않았음.
+- 3대 운영체제에서 별다른 설정없이 사용할 수 있게끔 하는 것이 목적입니다. 사용에 이상이 있으신 분은 이슈를 올려주세요.
