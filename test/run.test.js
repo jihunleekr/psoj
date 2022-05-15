@@ -1,53 +1,38 @@
-const { getObjectFile, compile, restore, run } = require("../lib/run");
+const { getObjFilename, compile, restore, run } = require("../lib/run");
+const { extname } = require("../lib/file");
 const test = require("tape");
 const { existsSync } = require("fs");
+const { join } = require("path");
 
 test("실행파일은 확장자를 제거하여 만든다. (자바는 예외)", (t) => {
   t.plan(2);
-  t.equal(getObjectFile("Main.cpp", "cpp"), "Main");
-  t.equal(getObjectFile("Main.java", "java"), "Main.class");
+  t.equal(getObjFilename("Main.cpp"), "Main");
+  t.equal(getObjFilename("Main.java"), "Main.class");
 });
 
-test("실행 테스트: php", (t) => {
-  t.plan(1);
-  t.equal(run("main.php", "php", "1 2", "./test/1000").stdout, "3", "실행");
+test("인터프리터 언어 실행", (t) => {
+  const filenames = ["main.php", "main.js", "main.py", "main.rb"];
+  t.plan(filenames.length * 1);
+  for (filename of filenames) {
+    const ext = extname(filename);
+    const dir = join("test", "1000");
+    t.equal(run(filename, "1 2", dir).stdout, "3", `${ext} 실행`);
+  }
 });
 
-test("실행 테스트: js", (t) => {
-  t.plan(1);
-  t.equal(run("main.js", "js", "1 2", "./test/1000").stdout, "3", "실행");
-});
+test("컴파일 언어 실행", (t) => {
+  const filenames = ["main.c", "main.cpp", "main.go", "Main.java", "Main.kt", "main.rs", "problem.ts"];
+  t.plan(filenames.length * 3);
+  for (filename of filenames) {
+    const ext = extname(filename);
+    const objFilename = getObjFilename(filename);
+    const dir = join("test", "1000");
+    compile(filename, dir);
+    t.equal(existsSync(join(dir, objFilename)), true, `${ext} 컴파일`);
 
-test("실행 테스트: py", (t) => {
-  t.plan(1);
-  t.equal(run("main.py", "py", "1 2", "./test/1000").stdout, "3", "실행");
-});
+    t.equal(run(filename, "1 2", dir).stdout, "3", `${ext} 실행`);
 
-test("실행 테스트: rb", (t) => {
-  t.plan(1);
-  t.equal(run("main.rb", "rb", "1 2", "./test/1000").stdout, "3", "실행");
-});
-
-test("실행 테스트: java", (t) => {
-  t.plan(3);
-
-  compile("Main.java", "java", "./test/1000");
-  t.equal(existsSync("./test/1000/Main.class"), true, "컴파일");
-
-  t.equal(run("Main.java", "java", "1 2", "./test/1000").stdout, "3", "실행");
-
-  restore("Main.java", "java", "./test/1000");
-  t.equal(existsSync("./test/1000/Main.class"), false, "제거");
-});
-
-test("실행 테스트: cpp", (t) => {
-  t.plan(3);
-
-  compile("main.cpp", "cpp", "./test/1000");
-  t.equal(existsSync("./test/1000/main"), true, "컴파일");
-
-  t.equal(run("main.cpp", "cpp", "1 2", "./test/1000").stdout, "3", "실행");
-
-  restore("main.cpp", "cpp", "./test/1000");
-  t.equal(existsSync("./test/1000/main"), false, "제거");
+    restore(filename, dir);
+    t.equal(existsSync(join(dir, objFilename)), false, `${ext} 제거`);
+  }
 });

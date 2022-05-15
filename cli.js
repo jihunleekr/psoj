@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { getDir, getExt, getSourceFile, getTestcases } = require("./lib/file");
+const { determineDir, determineExt, getSrcFilename, getTestcases } = require("./lib/file");
 const { compile, run, restore } = require("./lib/run");
 const { existsSync, readFileSync } = require("fs");
 const { join } = require("path");
@@ -19,26 +19,26 @@ const runables = config.sourceNames;
 const args = process.argv.slice(2);
 const keyword = args[0];
 
-const dir = getDir(keyword);
+const dir = determineDir(keyword);
 if (dir === null) exit(`No such directory: ${colors.cyan(keyword)}`);
-const ext = getExt(dir, exts);
+const ext = determineExt(dir, exts);
 if (ext === null) exit("No source file.");
-const sourceFile = getSourceFile(dir, ext, runables);
+const srcFilename = getSrcFilename(dir, ext, runables);
 const testcases = getTestcases(dir);
-const compileErrMsg = compile(sourceFile, ext, dir);
+const compileErrMsg = compile(srcFilename, dir);
 if (compileErrMsg) {
   exit(compileErrMsg);
 }
 
 if (testcases.length > 0) {
-  console.log("Source: " + colors.white(join(dir, sourceFile)));
+  console.log("Source: " + colors.white(join(dir, srcFilename)));
   console.log("");
   let testable = testcases.length;
   let corrects = 0;
   for (testcase of testcases) {
     const input = readFileSync(join(dir, testcase.input)).toString();
     const start = performance.now();
-    const result = run(sourceFile, ext, input, dir);
+    const result = run(srcFilename, input, dir);
     const end = performance.now();
     const stdout = result.stdout;
     const stderr = result.stderr;
@@ -73,7 +73,7 @@ if (testcases.length > 0) {
     console.log(colors.yellow(unknowns), "unknown case" + (unknowns > 1 ? "s" : "") + ".");
   }
 }
-restore(sourceFile, ext, dir);
+restore(srcFilename, dir);
 
 function exit(message) {
   console.log(message);
