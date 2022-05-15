@@ -7,9 +7,20 @@ PSOJ = Problem Solving Offline Judge
 
 # 설치
 
-1. [node.js](https://nodejs.org/ko/download/)
-1. [npx](https://www.npmjs.com/package/npx)
-1. 사용하고자 하는 언어의 컴파일러나 인터프리터
+1. [node.js](https://nodejs.org/ko/download/) 를 설치합니다.
+2. `npx` (장점: 자동 업데이트), `psoj` (장점: 명령어가 짧아짐) 중에 하나를 설치합니다.
+
+```sh
+$ npm install -g npx
+```
+
+or
+
+```sh
+$ npm install -g psoj
+```
+
+3. 사용하고자 하는 언어(c, python, ...) 의 컴파일러나 인터프리터를 설치합니다.
 
 # 사용법
 
@@ -17,8 +28,14 @@ PSOJ = Problem Solving Offline Judge
 $ npx psoj <keyword>
 ```
 
+or
+
+```sh
+$ psoj <keyword>
+```
+
 `keyword` 를 포함한 디렉토리의 소스파일이 실행됩니다.
-컴파일이 필요한 경우 컴파일 후 실행됩니다.
+컴파일이 필요한 경우 컴파일 후 실행됩니다. (실행 후 삭제)
 
 # 지원하는 언어
 
@@ -63,7 +80,7 @@ $ npx psoj <keyword>
 
 `1001` 디렉토리와 같이 정답파일이 없어도 실행 가능합니다.
 
-## 실행결과: 정답이 있는 경우
+## 실행결과: 정답파일이 있는 경우
 
 ```sh
 $ npx psoj 1000
@@ -81,7 +98,7 @@ result:
 2/3 cases passed.
 ```
 
-## 실행결과: 정답이 없는 경우
+## 실행결과: 정답파일이 없는 경우
 
 ```sh
 $ npx psoj 1001
@@ -114,7 +131,7 @@ result:
 
 # 지원 운영체제
 
-- 리눅스에서 사용 가능함.
-- 윈도우 `bash` 에서 사용 가능함.
-- macOS 에서 확인해보지 않았음.
+- 리눅스에서 테스트됨.
+- 윈도우즈 `bash` 에서 테스트됨.
+- macOS 에서 테스트해보지 못했으나 문제 없을 것으로 생각됨.
 - 3대 운영체제에서 별다른 설정없이 사용할 수 있게끔 하는 것이 목적입니다. 사용에 이상이 있으신 분은 이슈를 올려주세요.
