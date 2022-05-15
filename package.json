@@ -12,6 +12,10 @@
   "bin": {
     "psoj": "./cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jihunleekr/psoj.git"
+  },
   "scripts": {
     "test": "tape test/*.js | colortape"
   },
