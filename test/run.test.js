@@ -21,7 +21,7 @@ test("인터프리터 언어 실행", (t) => {
 });
 
 test("컴파일 언어 실행", (t) => {
-  const filenames = ["main.c", "main.cpp", "main.go", "Main.java", "Main.kt", "main.rs", "problem.ts"];
+  const filenames = ["main.c", "main.cpp", "main.cs", "main.go", "Main.java", "Main.kt", "main.rs", "problem.ts"];
   t.plan(filenames.length * 3);
   for (filename of filenames) {
     const ext = extname(filename);
