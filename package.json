@@ -28,6 +28,7 @@
     "tape": "^5.5.3"
   },
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "commander": "^9.2.0"
   }
 }
