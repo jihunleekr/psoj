@@ -3,6 +3,7 @@
 const { program, Option } = require("commander");
 const { version } = require("./package.json");
 const { determineDir, determineExt, getSrcFilename, getTestcases, extname } = require("./lib/file");
+const { equal } = require("./lib/diff");
 const { compile, run, restore } = require("./lib/run");
 const { existsSync, readFileSync } = require("fs");
 const { join } = require("path");
@@ -13,6 +14,7 @@ program
   .version(version)
   .argument("<keyword>", "problem directory")
   .addOption(new Option("-f, --file <file>", "filename to excute"))
+  .addOption(new Option("-d, --diff", "is show the difference"))
   .parse();
 
 const config = {
@@ -36,6 +38,7 @@ if (program.opts().file) {
 const exts = config.extensions;
 const runables = config.sourceNames;
 const keyword = program.processedArgs[0];
+const showDiff = !!program.opts().diff;
 
 const dir = determineDir(keyword);
 if (dir === null) exit(`No such directory: ${colors.cyan(keyword)}`);
@@ -64,19 +67,19 @@ if (testcases.length > 0) {
     if (!stderr) {
       const spent = (end - start).toFixed(2) + "ms";
       if (testcase.output === null) {
-        printTestCaseUnknown(testcase, spent, stdout);
+        printTestCaseUnknown(testcase.name, spent, stdout);
         testable -= 1;
       } else {
         const answer = readFileSync(join(dir, testcase.output)).toString();
-        if (answer === stdout) {
-          printTestCaseCorrect(testcase, spent);
+        if (equal(answer, stdout)) {
+          printTestCaseCorrect(testcase.name, spent);
           corrects += 1;
         } else {
-          printTestCaseWrong(testcase, spent, stdout, answer);
+          printTestCaseWrong(testcase.name, spent, stdout, answer, showDiff);
         }
       }
     } else {
-      printTestCaseError(testcase, stderr);
+      printTestCaseError(testcase.name, stderr);
       break;
     }
   }

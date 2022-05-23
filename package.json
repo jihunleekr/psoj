@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "colors": "^1.4.0",
-    "commander": "^9.2.0"
+    "commander": "^9.2.0",
+    "diff": "^5.1.0"
   }
 }
