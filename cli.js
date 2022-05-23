@@ -62,20 +62,20 @@ if (testcases.length > 0) {
     const start = performance.now();
     const result = run(srcFilename, input, dir);
     const end = performance.now();
-    const stdout = result.stdout;
+    const actual = result.stdout;
     const stderr = result.stderr;
     if (!stderr) {
       const spent = (end - start).toFixed(2) + "ms";
       if (testcase.output === null) {
-        printTestCaseUnknown(testcase.name, spent, stdout);
+        printTestCaseUnknown(testcase.name, spent, actual);
         testable -= 1;
       } else {
-        const answer = readFileSync(join(dir, testcase.output)).toString();
-        if (equal(answer, stdout)) {
+        const expected = readFileSync(join(dir, testcase.output)).toString();
+        if (equal(expected, actual)) {
           printTestCaseCorrect(testcase.name, spent);
           corrects += 1;
         } else {
-          printTestCaseWrong(testcase.name, spent, stdout, answer, showDiff);
+          printTestCaseWrong(testcase.name, spent, actual, expected, showDiff);
         }
       }
     } else {

@@ -92,7 +92,7 @@ Source: math/1000/main.py
 
 expected:
 40
-result:
+actual:
 30
 
 2/3 cases passed.
@@ -106,7 +106,7 @@ Source: math/1001/main.js
 
 ☐  1.in 54.77ms
 
-result:
+actual:
 30
 
 1 unknown case.
