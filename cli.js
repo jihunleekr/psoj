@@ -8,7 +8,13 @@ const { compile, run, restore } = require("./lib/run");
 const { existsSync, readFileSync } = require("fs");
 const { join } = require("path");
 const colors = require("colors/safe");
-const { printTestCaseUnknown, printTestCaseCorrect, printTestCaseWrong, printTestCaseError } = require("./lib/print");
+const {
+  pluralize,
+  printTestCaseUnknown,
+  printTestCaseCorrect,
+  printTestCaseWrong,
+  printTestCaseError,
+} = require("./lib/print");
 
 program
   .version(version)
@@ -87,12 +93,12 @@ if (testcases.length > 0) {
   if (testable > 0) {
     console.log(
       testable === corrects ? colors.green(corrects + "/" + testable) : colors.red(corrects + "/" + testable),
-      "case" + (corrects > 1 ? "s" : "") + " passed."
+      pluralize("case", corrects) + " passed."
     );
   }
   const unknowns = testcases.length - testable;
   if (unknowns) {
-    console.log(colors.yellow(unknowns), "unknown case" + (unknowns > 1 ? "s" : "") + ".");
+    console.log(colors.yellow(unknowns), "unknown " + pluralize("case", unknowns) + ".");
   }
 }
 restore(srcFilename, dir);
