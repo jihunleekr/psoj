@@ -40,6 +40,18 @@ test("테스트케이스는 파일명에 '.in' 이나 'input' 를 포함한다."
   ]);
 });
 
+test("테스트케이스에 특정 키워드를 포함하도록 한다.", (t) => {
+  t.plan(2);
+  t.deepEqual(getTestcases(join("test", "3000"), "2"), [
+    {
+      name: "2.in",
+      input: "2.in",
+      output: "2.out",
+    },
+  ]);
+  t.deepEqual(getTestcases(join("test", "3000"), "5"), []);
+});
+
 test("'main', 'index', 'problem' 순으로 불러온다.", (t) => {
   t.plan(3);
   t.equal(getSrcFilename(join("test", "1000"), "js"), "main.js");

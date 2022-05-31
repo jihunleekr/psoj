@@ -20,6 +20,7 @@ program
   .version(version)
   .argument("<keyword>", "problem directory")
   .addOption(new Option("-f, --file <file>", "filename to excute"))
+  .addOption(new Option("-t, --testcase <keyword>", "narrow down testcases"))
   .addOption(new Option("-d, --diff", "is show the difference"))
   .parse();
 
@@ -43,16 +44,17 @@ if (program.opts().file) {
 
 const exts = config.extensions;
 const runables = config.sourceNames;
-const keyword = program.processedArgs[0];
+const dirKeyword = program.processedArgs[0];
 const showDiff = !!program.opts().diff;
+const testcaseKeyword = program.opts().testcase;
 
-const dir = determineDir(keyword);
-if (dir === null) exit(`No such directory: ${colors.cyan(keyword)}`);
+const dir = determineDir(dirKeyword);
+if (dir === null) exit(`No such directory: ${colors.cyan(dirKeyword)}`);
 const ext = determineExt(dir, exts);
 if (ext === null) exit(`No source file in ${colors.cyan(dir)}`);
 const srcFilename = getSrcFilename(dir, ext, runables);
 
-const testcases = getTestcases(dir);
+const testcases = getTestcases(dir, testcaseKeyword);
 const compileErrMsg = compile(srcFilename, dir);
 if (compileErrMsg) {
   exit(compileErrMsg);
